@@ -1,0 +1,16 @@
+{
+  "$schema": "https://trynia.ai/schema/project.json",
+  "version": 1,
+  "name": "ReproClaw",
+  "sources": [],
+  "vaults": [],
+  "local": [
+    {
+      "id": "a637b2fa-94e4-4742-a192-73a80ed15017",
+      "path": "C:\\Users\\ayush\\Desktop\\Hackathons\\April 25\\OpenClaw Hackathon Eragon x Nozomio x AgentMail"
+    }
+  ],
+  "defaults": {
+    "search_mode": "scoped"
+  }
+}

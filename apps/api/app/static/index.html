@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ReproClaw — Reproducibility audits, by email.</title>
+    <meta name="description" content="ReproClaw audits ML papers for reproducibility. Email a paper and a repo; receive a reviewer-grade report with claim-level evidence." />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="/static/landing.css?v=20260425-editorial-v1" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header" aria-label="Site header">
+        <a class="brand" href="/" aria-label="ReproClaw home">
+          <span class="brand-paw" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <ellipse cx="14" cy="16" rx="5" ry="8" />
+              <ellipse cx="24" cy="11" rx="5" ry="8" />
+              <ellipse cx="34" cy="16" rx="5" ry="8" />
+              <ellipse cx="9" cy="27" rx="4" ry="6" />
+              <ellipse cx="39" cy="27" rx="4" ry="6" />
+              <path d="M13 35c0-8 5-14 11-14s11 6 11 14c0 5-4 8-11 8s-11-3-11-8Z" />
+            </svg>
+          </span>
+          <span class="brand-mark">ReproClaw</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#how">How it works</a>
+          <a href="#audit">Sample audit</a>
+          <a href="#stack">Stack</a>
+        </nav>
+        <div class="site-actions">
+          <a class="link-quiet" href="mailto:ayushojzha@gmail.com?subject=ReproClaw%20demo">Book a demo</a>
+          <a class="button primary" href="/dashboard">
+            Open dashboard
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-label="Introduction">
+          <span class="status-pill" role="status">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>Live · auditing 14 papers this week</span>
+          </span>
+          <h1>
+            Reproducibility audits for ML papers,
+            <em>delivered by email.</em>
+          </h1>
+          <p class="hero-sub">
+            Forward an arXiv link and a repository to a dedicated inbox. ReproClaw extracts every auditable claim, aligns each one to code with Nia, and replies in-thread with a reviewer-grade report.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="/dashboard">
+              Open dashboard
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a class="button" href="mailto:ayushojzha@gmail.com?subject=ReproClaw%20demo">Book a demo</a>
+          </div>
+          <dl class="hero-meta" aria-label="At a glance">
+            <div>
+              <dt>Median turnaround</dt>
+              <dd>4 min · paper to report</dd>
+            </div>
+            <div>
+              <dt>Evidence</dt>
+              <dd>Claim-level, file + line</dd>
+            </div>
+            <div>
+              <dt>Interface</dt>
+              <dd>Inbox · no dashboard required</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="how" id="how" aria-label="How it works">
+          <header class="section-head">
+            <span class="section-label">How it works</span>
+            <h2>Four steps, one email thread.</h2>
+            <p>Each audit runs end-to-end without leaving the inbox. The dashboard is a window into the same work.</p>
+          </header>
+
+          <ol class="step-list">
+            <li class="panel step">
+              <span class="step-num">01</span>
+              <div class="step-body">
+                <h3>Email a paper and a repo</h3>
+                <p>Send any arXiv URL plus a public GitHub link to <span class="mono">audit@reproclaw.com</span>. AgentMail picks the thread up.</p>
+              </div>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <rect x="2" y="3.5" width="12" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </li>
+            <li class="panel step">
+              <span class="step-num">02</span>
+              <div class="step-body">
+                <h3>Claims are extracted</h3>
+                <p>The paper is parsed into atomic, falsifiable claims — hyperparameters, datasets, results, ablations — each tagged for verification.</p>
+              </div>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <rect x="3" y="2.5" width="10" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </span>
+            </li>
+            <li class="panel step">
+              <span class="step-num">03</span>
+              <div class="step-body">
+                <h3>Code evidence is aligned</h3>
+                <p>Nia indexes the repository and resolves each claim to the exact file, function, and line that proves or contradicts it.</p>
+              </div>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </span>
+            </li>
+            <li class="panel step">
+              <span class="step-num">04</span>
+              <div class="step-body">
+                <h3>The audit is emailed back</h3>
+                <p>You receive a reproducibility score, a verdict per claim, and the evidence excerpts inline — replying threads more questions back to the agent.</p>
+              </div>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="audit-preview" id="audit" aria-label="Sample audit">
+          <header class="section-head">
+            <span class="section-label">Sample audit</span>
+            <h2>What lands in your inbox.</h2>
+            <p>A real preview from a recent audit. Every claim links to its evidence path and a snippet for inspection.</p>
+          </header>
+
+          <article class="window panel" aria-label="Audit preview window">
+            <header class="window-chrome">
+              <span class="window-dots" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </span>
+              <span class="window-title mono">audit · vit-cifar10-baseline · 2026-04-22</span>
+              <span class="window-tail mono">.eml</span>
+            </header>
+
+            <div class="window-body">
+              <div class="window-grid">
+                <div class="score-block">
+                  <span class="score-label">Reproducibility score</span>
+                  <div class="score-value">
+                    <strong>84</strong>
+                    <span>/ 100</span>
+                  </div>
+                  <div class="score-bar" aria-hidden="true">
+                    <span style="width: 84%"></span>
+                  </div>
+                  <p class="score-verdict">Verdict <strong>Largely reproducible</strong> · 1 mismatch</p>
+                </div>
+
+                <dl class="counts">
+                  <div>
+                    <dt>Verified</dt>
+                    <dd>7</dd>
+                  </div>
+                  <div>
+                    <dt>Flagged</dt>
+                    <dd>1</dd>
+                  </div>
+                  <div>
+                    <dt>Needs review</dt>
+                    <dd>2</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div class="claim-row">
+                <span class="badge flagged">flagged</span>
+                <div class="claim-text">
+                  <strong>Trained for 100 epochs on ImageNet-1k.</strong>
+                  <p>Paper §4.1 states 100 epochs; <span class="mono">configs/train.yaml</span> sets <span class="mono">epochs: 50</span>.</p>
+                </div>
+                <span class="claim-meta mono">configs/train.yaml · L23</span>
+              </div>
+
+              <pre class="evidence" aria-label="Code evidence snippet"><code>training:
+  optimizer: adamw
+  lr: 3.0e-4
+  weight_decay: 0.05
+  epochs: 50            <span class="hl">// paper claims 100</span>
+  batch_size: 1024
+  warmup_steps: 2000</code></pre>
+
+              <div class="claim-row">
+                <span class="badge verified">verified</span>
+                <div class="claim-text">
+                  <strong>Uses AdamW with weight decay 0.05.</strong>
+                  <p>Matches <span class="mono">configs/train.yaml</span> exactly.</p>
+                </div>
+                <span class="claim-meta mono">configs/train.yaml · L19–22</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="stack" id="stack" aria-label="Built with">
+          <header class="section-head section-head-tight">
+            <span class="section-label">Built with</span>
+          </header>
+          <ul class="stack-row" aria-label="Integrations">
+            <li>
+              <img src="/static/logos/arxiv.svg" alt="" aria-hidden="true" />
+              <span>arXiv</span>
+            </li>
+            <li>
+              <img src="/static/logos/github.svg" alt="" aria-hidden="true" />
+              <span>GitHub</span>
+            </li>
+            <li>
+              <img src="/static/logos/agentmail.ico" alt="" aria-hidden="true" />
+              <span>AgentMail</span>
+            </li>
+            <li>
+              <img src="/static/logos/nia.svg" alt="" aria-hidden="true" />
+              <span>Nia</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="closer" aria-label="Get started">
+          <h2>Audit a paper this afternoon.</h2>
+          <p>The dashboard streams every audit as it runs. The inbox does the rest.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="/dashboard">
+              Open dashboard
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a class="button" href="mailto:ayushojzha@gmail.com?subject=ReproClaw%20demo">Book a demo</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Footer">
+        <div class="foot-row">
+          <a class="brand small" href="/" aria-label="ReproClaw home">
+            <span class="brand-paw" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false">
+                <ellipse cx="14" cy="16" rx="5" ry="8" />
+                <ellipse cx="24" cy="11" rx="5" ry="8" />
+                <ellipse cx="34" cy="16" rx="5" ry="8" />
+                <ellipse cx="9" cy="27" rx="4" ry="6" />
+                <ellipse cx="39" cy="27" rx="4" ry="6" />
+                <path d="M13 35c0-8 5-14 11-14s11 6 11 14c0 5-4 8-11 8s-11-3-11-8Z" />
+              </svg>
+            </span>
+            <span class="brand-mark">ReproClaw</span>
+          </a>
+          <p class="foot-tagline">Reproducibility audits, by email.</p>
+        </div>
+        <div class="foot-row foot-meta">
+          <span class="mono">© <span id="foot-year">2026</span> ReproClaw · hackathon build</span>
+          <span class="foot-links">
+            <a href="mailto:ayushojzha@gmail.com">ayushojzha@gmail.com</a>
+            <a href="/dashboard">Dashboard</a>
+          </span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/static/landing.js?v=20260425-editorial-v1"></script>
+  </body>
+</html>

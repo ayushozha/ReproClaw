@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" aria-hidden="true" focusable="false">
+  <g fill="#11131a">
+    <ellipse cx="22.5" cy="27" rx="6.5" ry="9.5"/>
+    <ellipse cx="40" cy="19" rx="7" ry="10.3"/>
+    <ellipse cx="57.5" cy="27" rx="6.5" ry="9.5"/>
+    <ellipse cx="14.5" cy="43.5" rx="5.3" ry="7.3"/>
+    <ellipse cx="65.5" cy="43.5" rx="5.3" ry="7.3"/>
+    <path d="M20.5 56c0-10.8 8.3-18.8 18.5-18.8S57.5 45.2 57.5 56c0 6.8-6.3 10.8-18.5 10.8S20.5 62.8 20.5 56Z"/>
+  </g>
+  <g stroke="#1b4ed8" stroke-width="1.5" stroke-linecap="round" fill="none">
+    <path d="M35.5 50.5h7"/>
+    <path d="M33 54.8h12"/>
+    <path d="M35.5 59h7"/>
+  </g>
+  <text x="92" y="55" font-family="Instrument Serif, Georgia, serif" font-weight="400" font-size="46" letter-spacing="-0.012em" fill="#11131a">ReproClaw</text>
+</svg>

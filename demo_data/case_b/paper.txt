@@ -1,0 +1,6 @@
+ReproClaw fallback paper B.
+
+We evaluate on CIFAR-10 and report 90.4 percent accuracy.
+We train for 50 epochs with AdamW.
+We report the mean and standard deviation over 5 seeds.
+

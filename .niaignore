@@ -1,0 +1,20 @@
+# Keep secrets and generated files out of local Nia indexing.
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.next/
+dist/
+build/
+.cache/
+*.db
+*.db-shm
+*.db-wal
+*.log
+.playwright-mcp/
+reproclaw-landing-*.png

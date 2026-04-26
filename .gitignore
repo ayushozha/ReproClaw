@@ -1,38 +1,36 @@
-# Env
+# Secrets
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
 # Python
 __pycache__/
 *.py[cod]
-*.egg-info/
+.python-version
 .venv/
 venv/
-.uv/
-.ruff_cache/
-.mypy_cache/
-.pytest_cache/
 
-# Node / Next.js
+# Local runtime state
+*.db
+*.db-shm
+*.db-wal
+.cache/
+
+# Node and frontend output
 node_modules/
 .next/
-out/
-.pnpm-store/
-.turbo/
 dist/
 build/
-*.tsbuildinfo
 
-# Databases & caches
-*.db
-*.sqlite
-*.sqlite3
-/tmp/reproclaw/
-
-# Editor / OS
+# Logs and OS/editor files
+*.log
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-*.swp
+.playwright-mcp/
+reproclaw-landing-*.png
+reproclaw-dashboard-*.png
+
+# Local research artifacts (not source)
+Research Papers/

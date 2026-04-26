@@ -1,0 +1,109 @@
+<section class="claims-view" aria-label="Claims">
+  <header class="dashboard-header claims-view-header">
+    <div>
+      <h1>Claims</h1>
+      <p>Every auditable claim across your audits, ranked by signal.</p>
+    </div>
+    <div class="header-actions claims-view-actions">
+      <span class="chat-status-pill claims-view-status" data-state="idle" data-claims-status>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span data-claims-status-label>Idle</span>
+      </span>
+      <button class="button secondary small claims-view-refresh" type="button" data-claims-refresh>
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M13.5 7.5a5.5 5.5 0 1 0-1.4 4.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M13.5 3v4h-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="claims-view-controls" aria-label="Filter claims">
+    <label class="claims-view-search">
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" class="claims-view-search-icon">
+        <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <input
+        type="search"
+        autocomplete="off"
+        placeholder="Search claim text or reasoning..."
+        data-claims-search
+        aria-label="Search claims"
+      />
+    </label>
+    <div class="claims-view-chips" role="group" aria-label="Filter by verdict" data-claims-chips>
+      <button type="button" class="claims-view-chip is-active" data-claims-filter="all">All</button>
+      <button type="button" class="claims-view-chip" data-claims-filter="verified">Verified</button>
+      <button type="button" class="claims-view-chip" data-claims-filter="flagged">Flagged</button>
+      <button type="button" class="claims-view-chip" data-claims-filter="needs_review">Needs review</button>
+      <button type="button" class="claims-view-chip" data-claims-filter="unsupported">Unsupported</button>
+    </div>
+  </section>
+
+  <section class="claims-view-metrics metric-grid" aria-label="Claim totals">
+    <article class="metric-card total claims-view-metric">
+      <span class="metric-icon" aria-hidden="true"></span>
+      <strong data-claims-metric="total">0</strong>
+      <p>Total claims</p>
+    </article>
+    <article class="metric-card verified claims-view-metric">
+      <span class="metric-icon" aria-hidden="true"></span>
+      <strong data-claims-metric="verified-pct">0%</strong>
+      <p>Verified share</p>
+    </article>
+    <article class="metric-card flagged claims-view-metric">
+      <span class="metric-icon" aria-hidden="true"></span>
+      <strong data-claims-metric="flagged">0</strong>
+      <p>Flagged</p>
+    </article>
+    <article class="metric-card review claims-view-metric">
+      <span class="metric-icon" aria-hidden="true"></span>
+      <strong data-claims-metric="needs_review">0</strong>
+      <p>Needs review</p>
+    </article>
+  </section>
+
+  <article class="panel claims-view-panel">
+    <header class="claims-view-panel-head">
+      <div>
+        <h2>Auditable claims</h2>
+        <p>Each row is one extracted claim. Open a row to inspect its evidence snippet.</p>
+      </div>
+      <span class="claims-view-count" data-claims-count>0 shown</span>
+    </header>
+
+    <div class="claims-view-table-wrap" data-claims-region>
+      <table class="claims-view-table">
+        <thead>
+          <tr>
+            <th scope="col" class="claims-view-th claim-col">Claim</th>
+            <th scope="col" class="claims-view-th verdict-col">Verdict</th>
+            <th scope="col" class="claims-view-th severity-col">Severity</th>
+            <th scope="col" class="claims-view-th evidence-col">Evidence</th>
+            <th scope="col" class="claims-view-th audit-col">Audit</th>
+            <th scope="col" class="claims-view-th reason-col">Reason</th>
+          </tr>
+        </thead>
+        <tbody data-claims-body></tbody>
+      </table>
+    </div>
+
+    <div class="claims-view-state claims-view-loading" data-claims-loading hidden>
+      <span class="claims-view-spinner" aria-hidden="true"></span>
+      <p>Fetching audits...</p>
+    </div>
+
+    <div class="claims-view-state claims-view-empty" data-claims-empty hidden>
+      <h3>No claims to show</h3>
+      <p data-claims-empty-msg>Run your first audit and ReproClaw will populate this table with verifiable claim verdicts.</p>
+    </div>
+
+    <div class="claims-view-state claims-view-error" data-claims-error hidden>
+      <h3>Could not load claims</h3>
+      <p data-claims-error-msg>The audits endpoint did not respond.</p>
+      <button type="button" class="button secondary small" data-claims-retry>Retry</button>
+    </div>
+  </article>
+</section>

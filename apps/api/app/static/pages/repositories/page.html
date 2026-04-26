@@ -1,0 +1,109 @@
+<section class="repositories-view" aria-label="Repositories">
+  <header class="dashboard-header repositories-view-header">
+    <div>
+      <h1>Repositories</h1>
+      <p>Every codebase ReproClaw has audited.</p>
+    </div>
+    <div class="header-actions repositories-view-actions">
+      <span class="chat-status-pill repositories-view-status" data-state="idle" data-repositories-status>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span data-repositories-status-label>Idle</span>
+      </span>
+      <button class="button secondary small repositories-view-refresh" type="button" data-repositories-refresh>
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M13.5 7.5a5.5 5.5 0 1 0-1.4 4.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M13.5 3v4h-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="repositories-view-controls" aria-label="Filter repositories">
+    <label class="repositories-view-search">
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" class="repositories-view-search-icon">
+        <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <input
+        type="search"
+        autocomplete="off"
+        placeholder="Search org or repo name..."
+        data-repositories-search
+        aria-label="Search repositories"
+      />
+    </label>
+    <label class="repositories-view-sort">
+      <span class="repositories-view-sort-label">Sort</span>
+      <select data-repositories-sort aria-label="Sort repositories">
+        <option value="latest">Latest audit</option>
+        <option value="score">Highest score</option>
+        <option value="count">Most audited</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="repositories-view-summary" aria-label="Repository totals">
+    <article class="repositories-view-summary-card">
+      <span class="repositories-view-summary-label">Distinct repos</span>
+      <strong data-repositories-summary="repos">0</strong>
+    </article>
+    <article class="repositories-view-summary-card">
+      <span class="repositories-view-summary-label">Average score</span>
+      <strong data-repositories-summary="avg">--</strong>
+    </article>
+    <article class="repositories-view-summary-card">
+      <span class="repositories-view-summary-label">Top language</span>
+      <strong data-repositories-summary="lang">--</strong>
+    </article>
+    <article class="repositories-view-summary-card">
+      <span class="repositories-view-summary-label">With concerns</span>
+      <strong data-repositories-summary="concerns">0</strong>
+    </article>
+  </section>
+
+  <article class="panel repositories-view-panel">
+    <header class="repositories-view-panel-head">
+      <div>
+        <h2>Codebases</h2>
+        <p>Each card aggregates every audit ReproClaw ran against that repository.</p>
+      </div>
+      <span class="repositories-view-count" data-repositories-count>0 shown</span>
+    </header>
+
+    <div class="repositories-view-grid" data-repositories-grid></div>
+
+    <div class="repositories-view-state repositories-view-loading" data-repositories-loading hidden>
+      <span class="repositories-view-spinner" aria-hidden="true"></span>
+      <p>Fetching audits...</p>
+    </div>
+
+    <div class="repositories-view-state repositories-view-empty" data-repositories-empty hidden>
+      <h3>No repositories yet</h3>
+      <p data-repositories-empty-msg>Email a paper plus repo to ReproClaw and the audited codebase will appear here.</p>
+    </div>
+
+    <div class="repositories-view-state repositories-view-error" data-repositories-error hidden>
+      <h3>Could not load repositories</h3>
+      <p data-repositories-error-msg>The audits endpoint did not respond.</p>
+      <button type="button" class="button secondary small" data-repositories-retry>Retry</button>
+    </div>
+  </article>
+
+  <aside class="repositories-view-drawer" data-repositories-drawer hidden aria-hidden="true" aria-label="Repository detail">
+    <div class="repositories-view-drawer-scrim" data-repositories-drawer-close></div>
+    <article class="repositories-view-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="repositories-drawer-title">
+      <header class="repositories-view-drawer-head">
+        <div class="repositories-view-drawer-title-row">
+          <span class="file-icon github repositories-view-drawer-icon" aria-hidden="true"></span>
+          <div>
+            <span class="repositories-view-drawer-eyebrow">Repository</span>
+            <h2 id="repositories-drawer-title" data-repositories-drawer-title class="mono">--</h2>
+          </div>
+        </div>
+        <button type="button" class="button secondary small" data-repositories-drawer-close aria-label="Close detail">Close</button>
+      </header>
+      <div class="repositories-view-drawer-body" data-repositories-drawer-body></div>
+    </article>
+  </aside>
+</section>

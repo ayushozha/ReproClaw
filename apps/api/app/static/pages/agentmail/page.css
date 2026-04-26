@@ -1,0 +1,820 @@
+.agentmail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.agentmail-view-header h1 {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+}
+
+.agentmail-view-header p {
+  color: var(--ink-mute);
+  font-size: 17px;
+  margin-top: 8px;
+}
+
+.agentmail-view-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.agentmail-view-status[data-state="connected"] .live-dot,
+.agentmail-view-status[data-state="live"] .live-dot {
+  background: var(--live);
+}
+
+.agentmail-view-status[data-state="live"] .live-dot::after {
+  animation: live-pulse 1.8s ease-out infinite;
+  background: var(--live);
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  opacity: 0.45;
+  position: absolute;
+}
+
+.agentmail-view-status[data-state="pending"] .live-dot {
+  background: var(--ink-mute);
+}
+
+.agentmail-view-status[data-state="failed"] .live-dot {
+  background: #b3261e;
+}
+
+.agentmail-view-copy svg,
+.agentmail-view-refresh svg {
+  height: 14px;
+  width: 14px;
+}
+
+.agentmail-view-banner {
+  align-items: flex-start;
+  background: #fff7e6;
+  border: 1px solid #f1d9a3;
+  border-radius: 10px;
+  color: #6a4b08;
+  display: flex;
+  font-size: 13.5px;
+  gap: 12px;
+  line-height: 1.45;
+  padding: 12px 14px;
+}
+
+.agentmail-view-banner svg {
+  color: #b07b0a;
+  flex: 0 0 16px;
+  height: 16px;
+  margin-top: 1px;
+  width: 16px;
+}
+
+.agentmail-view-banner strong {
+  color: #4a3406;
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.agentmail-view-shell {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 220px minmax(0, 1fr) 480px;
+  min-height: 640px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.agentmail-view-shell > * {
+  min-height: 0;
+}
+
+/* ── Left rail ────────────────────────────────────────────────────── */
+
+.agentmail-view-rail {
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 14px 18px;
+}
+
+.agentmail-view-rail-label {
+  margin: 0 0 6px;
+  padding-left: 10px;
+}
+
+.agentmail-view-rail-label-mid {
+  margin-top: 18px;
+}
+
+.agentmail-view-folders {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.agentmail-view-folder {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  gap: 10px;
+  letter-spacing: -0.005em;
+  min-height: 34px;
+  padding: 0 10px;
+  position: relative;
+  text-align: left;
+  transition: background-color 120ms ease, color 120ms ease;
+  width: 100%;
+}
+
+.agentmail-view-folder:hover {
+  background: var(--rule-soft);
+  color: var(--ink-strong);
+}
+
+.agentmail-view-folder.is-active {
+  color: var(--ink-strong);
+  font-weight: 600;
+}
+
+.agentmail-view-folder.is-active::before {
+  background: var(--ink-strong);
+  border-radius: 1px;
+  content: "";
+  height: 18px;
+  left: -1px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+}
+
+.agentmail-view-folder svg {
+  flex: 0 0 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.agentmail-view-folder span:nth-of-type(1) {
+  flex: 1 1 auto;
+}
+
+.agentmail-view-folder-count {
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.agentmail-view-folder.is-active .agentmail-view-folder-count {
+  color: var(--ink-soft);
+}
+
+.agentmail-view-inbox-address {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0 10px;
+  word-break: break-all;
+}
+
+/* ── Center thread list ───────────────────────────────────────────── */
+
+.agentmail-view-list {
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.agentmail-view-list-head {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 18px 22px 14px;
+}
+
+.agentmail-view-list-head h2 {
+  color: var(--ink-strong);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.agentmail-view-list-head p {
+  color: var(--ink-mute);
+  font-size: 12.5px;
+  margin-top: 4px;
+}
+
+.agentmail-view-list-count {
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.agentmail-view-threads {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  list-style: none;
+  margin: 0;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.agentmail-view-thread {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: grid;
+  font-family: inherit;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 14px 22px 14px 24px;
+  position: relative;
+  text-align: left;
+  transition: background-color 120ms ease;
+  width: 100%;
+}
+
+.agentmail-view-thread:hover {
+  background: var(--rule-soft);
+}
+
+.agentmail-view-thread.is-active {
+  background: var(--rule-soft);
+  color: var(--ink-strong);
+}
+
+.agentmail-view-thread.is-active::before {
+  background: var(--ink-strong);
+  border-radius: 1px;
+  content: "";
+  height: 24px;
+  left: 0;
+  position: absolute;
+  top: 18px;
+  width: 2px;
+}
+
+.agentmail-view-thread-top {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.agentmail-view-thread-sender {
+  color: var(--ink-strong);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agentmail-view-thread-time {
+  color: var(--ink-mute);
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.agentmail-view-thread-subject {
+  color: var(--ink-strong);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agentmail-view-thread-snippet {
+  color: var(--ink-mute);
+  font-size: 12.5px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agentmail-view-thread-tail {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  grid-row: span 3;
+  grid-column: 2;
+  align-items: flex-end;
+  justify-self: end;
+}
+
+/* ── Detail pane ──────────────────────────────────────────────────── */
+
+.agentmail-view-detail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.agentmail-view-detail-empty {
+  align-items: center;
+  color: var(--ink-mute);
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 6px;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.agentmail-view-detail-empty h3 {
+  color: var(--ink-strong);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.agentmail-view-detail-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 22px 24px 18px;
+}
+
+.agentmail-view-detail-head {
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 18px;
+}
+
+.agentmail-view-detail-head h2 {
+  color: var(--ink-strong);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+}
+
+.agentmail-view-detail-meta {
+  column-gap: 18px;
+  display: grid;
+  font-size: 12.5px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  row-gap: 4px;
+}
+
+.agentmail-view-detail-meta div {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+
+.agentmail-view-detail-meta dt {
+  color: var(--ink-mute);
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 1px;
+}
+
+.agentmail-view-detail-meta dd {
+  color: var(--ink-soft);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agentmail-view-detail-meta dd.mono {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+
+.agentmail-view-detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* ── Message blocks ───────────────────────────────────────────────── */
+
+.agentmail-view-message {
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 0;
+}
+
+.agentmail-view-message:last-of-type {
+  border-bottom: 0;
+}
+
+.agentmail-view-message-head {
+  align-items: baseline;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.agentmail-view-message-label {
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.agentmail-view-message-meta {
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+.agentmail-view-quote {
+  border-left: 2px solid var(--rule);
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+  padding: 4px 0 4px 14px;
+  white-space: pre-wrap;
+}
+
+.agentmail-view-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.agentmail-view-resources:empty {
+  display: none;
+}
+
+.agentmail-view-resource {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  display: inline-flex;
+  font-family: var(--mono);
+  font-size: 11px;
+  gap: 6px;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  text-decoration: none;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.agentmail-view-resource:hover {
+  border-color: var(--ink-mute);
+  color: var(--ink-strong);
+}
+
+.agentmail-view-resource-tag {
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+
+.agentmail-view-message-reply {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  border-radius: 10px;
+  margin-top: 4px;
+  padding: 16px 18px;
+}
+
+.agentmail-view-report {
+  color: var(--ink-strong);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.agentmail-view-report p {
+  margin: 0 0 10px;
+}
+
+.agentmail-view-report p:last-child {
+  margin-bottom: 0;
+}
+
+.agentmail-view-report h1,
+.agentmail-view-report h2,
+.agentmail-view-report h3 {
+  color: var(--ink-strong);
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 16px 0 8px;
+}
+
+.agentmail-view-report h1 { font-size: 20px; }
+.agentmail-view-report h2 { font-size: 17px; }
+.agentmail-view-report h3 { font-size: 15px; font-weight: 500; }
+
+.agentmail-view-report ul,
+.agentmail-view-report ol {
+  margin: 0 0 10px;
+  padding-left: 22px;
+}
+
+.agentmail-view-report li {
+  margin-bottom: 4px;
+}
+
+.agentmail-view-report a {
+  border-bottom: 1px solid var(--rule);
+  color: var(--accent);
+}
+
+.agentmail-view-report code {
+  background: rgba(17, 19, 26, 0.06);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 1px 5px;
+}
+
+.agentmail-view-report pre {
+  background: rgba(17, 19, 26, 0.06);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  margin: 8px 0;
+  overflow-x: auto;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+}
+
+.agentmail-view-report-empty {
+  color: var(--ink-mute);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ── Composer ─────────────────────────────────────────────────────── */
+
+.agentmail-view-composer {
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.agentmail-view-composer textarea {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  color: var(--ink-strong);
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.5;
+  min-height: 72px;
+  outline: none;
+  padding: 10px 12px;
+  resize: vertical;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.agentmail-view-composer textarea:focus {
+  border-color: var(--ink-strong);
+  box-shadow: 0 0 0 3px rgba(27, 78, 216, 0.12);
+}
+
+.agentmail-view-composer textarea::placeholder {
+  color: var(--ink-mute);
+}
+
+.agentmail-view-composer-foot {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.agentmail-view-composer-hint {
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+.agentmail-view-composer button[data-agentmail-composer-send] {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.agentmail-view-composer button[data-agentmail-composer-send] svg {
+  height: 14px;
+  width: 14px;
+}
+
+/* ── State blocks ─────────────────────────────────────────────────── */
+
+.agentmail-view-state {
+  align-items: center;
+  color: var(--ink-mute);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 32px 22px;
+  text-align: center;
+}
+
+.agentmail-view-state h3 {
+  color: var(--ink-strong);
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.agentmail-view-state p {
+  color: var(--ink-mute);
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 320px;
+}
+
+.agentmail-view-spinner {
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  border-top-color: var(--ink-mute);
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  animation: agentmail-spin 0.9s linear infinite;
+}
+
+@keyframes agentmail-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Status & verdict badges ──────────────────────────────────────── */
+
+.agentmail-view .badge {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 3px 9px;
+  text-transform: capitalize;
+}
+
+.agentmail-view .badge.queued {
+  background: var(--rule-soft);
+  color: var(--ink-soft);
+}
+
+.agentmail-view .badge.running {
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+.agentmail-view .badge.running::before {
+  background: var(--accent);
+  border-radius: 999px;
+  content: "";
+  display: inline-block;
+  height: 6px;
+  margin-right: 6px;
+  width: 6px;
+  align-self: center;
+}
+
+.agentmail-view .badge.done {
+  background: #e8f8ef;
+  color: var(--green);
+}
+
+.agentmail-view .badge.failed {
+  background: #ffe9e9;
+  color: var(--red);
+}
+
+.agentmail-view .badge.verified-band {
+  background: #e8f8ef;
+  color: var(--green);
+}
+
+.agentmail-view .badge.flagged-band {
+  background: #ffe9e9;
+  color: var(--red);
+}
+
+.agentmail-view .badge.review-band {
+  background: #fff2dc;
+  color: #d58100;
+}
+
+.agentmail-view .badge.unscored-band {
+  background: var(--rule-soft);
+  color: var(--ink-soft);
+}
+
+/* ── Focus visibility ─────────────────────────────────────────────── */
+
+.agentmail-view button:focus-visible,
+.agentmail-view textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.agentmail-view-folder:focus-visible,
+.agentmail-view-thread:focus-visible {
+  background: var(--rule-soft);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .agentmail-view-shell {
+    grid-template-columns: minmax(0, 1fr) 420px;
+  }
+  .agentmail-view-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .agentmail-view-shell {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .agentmail-view-list {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+    max-height: 360px;
+  }
+  .agentmail-view-detail-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agentmail-view-spinner {
+    animation: none;
+  }
+  .agentmail-view-status .live-dot::after {
+    animation: none;
+  }
+}

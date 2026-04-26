@@ -1,0 +1,151 @@
+<section class="evidence-view" aria-label="Evidence">
+  <header class="dashboard-header evidence-header-row">
+    <div>
+      <h1>Evidence</h1>
+      <p>Code snippets the auditor matched to each paper claim.</p>
+    </div>
+    <div class="header-actions evidence-actions">
+      <label class="evidence-search" aria-label="Search evidence by path or repo">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <input
+          type="search"
+          class="evidence-search-input"
+          placeholder="Filter by path or repo…"
+          autocomplete="off"
+          data-evidence-input="search"
+        />
+      </label>
+      <select class="evidence-select" data-evidence-input="verdict" aria-label="Filter by verdict">
+        <option value="">All verdicts</option>
+        <option value="verified">Verified</option>
+        <option value="flagged">Flagged</option>
+        <option value="needs_review">Needs review</option>
+        <option value="unsupported">Unsupported</option>
+      </select>
+      <select class="evidence-select" data-evidence-input="retrieval" aria-label="Filter by retrieval method">
+        <option value="">All retrieval</option>
+      </select>
+      <button class="button secondary small evidence-refresh" type="button" data-evidence-input="refresh">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M13.5 2.5v3h-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  <section class="evidence-stats" aria-label="Evidence at a glance">
+    <article class="evidence-stat">
+      <span class="evidence-stat-label">Evidence rows</span>
+      <strong data-evidence-stat="rows">--</strong>
+    </article>
+    <article class="evidence-stat">
+      <span class="evidence-stat-label">Distinct files</span>
+      <strong data-evidence-stat="files">--</strong>
+    </article>
+    <article class="evidence-stat">
+      <span class="evidence-stat-label">Distinct repos</span>
+      <strong data-evidence-stat="repos">--</strong>
+    </article>
+    <article class="evidence-stat">
+      <span class="evidence-stat-label">Backing flagged claims</span>
+      <strong data-evidence-stat="flaggedPct">--</strong>
+    </article>
+  </section>
+
+  <section class="dashboard-grid evidence-grid">
+    <article class="panel evidence-list-panel">
+      <header class="evidence-panel-head">
+        <div>
+          <h2>Snippets</h2>
+          <p data-evidence-list-summary>Loading evidence…</p>
+        </div>
+        <span class="chat-status-pill" data-state="idle" data-evidence-pill>
+          <span class="live-dot" aria-hidden="true"></span>
+          <span data-evidence-pill-text>Loading</span>
+        </span>
+      </header>
+
+      <div class="evidence-list" data-evidence-list role="list" aria-live="polite">
+        <div class="evidence-shimmer-group" data-evidence-loading>
+          <div class="evidence-shimmer"></div>
+          <div class="evidence-shimmer"></div>
+          <div class="evidence-shimmer"></div>
+          <div class="evidence-shimmer"></div>
+        </div>
+      </div>
+
+      <div class="evidence-empty" data-evidence-empty hidden>
+        <h3>No evidence yet</h3>
+        <p>Run an audit and the matched snippets will appear here.</p>
+      </div>
+
+      <div class="evidence-error" data-evidence-error hidden>
+        <h3>Could not load evidence</h3>
+        <p data-evidence-error-text>Try refreshing in a moment.</p>
+      </div>
+    </article>
+
+    <div class="side-panels evidence-side">
+      <article class="panel evidence-detail" data-evidence-detail>
+        <div class="evidence-detail-empty" data-evidence-detail-empty>
+          <h3>Select a snippet</h3>
+          <p>Pick any evidence row on the left to inspect the full snippet, the parent claim, and the auditor's reasoning.</p>
+        </div>
+
+        <div class="evidence-detail-body" data-evidence-detail-body hidden>
+          <header class="evidence-detail-head">
+            <div class="evidence-detail-meta">
+              <span class="evidence-eyebrow" data-evidence-detail-audit>--</span>
+              <h2 data-evidence-detail-path class="mono">--</h2>
+              <p class="evidence-detail-range mono" data-evidence-detail-range>Lines --</p>
+            </div>
+            <div class="evidence-detail-badges">
+              <span class="badge" data-evidence-detail-verdict>--</span>
+              <span class="evidence-severity" data-evidence-detail-severity>severity --</span>
+            </div>
+          </header>
+
+          <section class="evidence-detail-claim">
+            <span class="evidence-mini-label">Claim</span>
+            <p data-evidence-detail-claim>--</p>
+          </section>
+
+          <pre class="evidence-detail-code"><code data-evidence-detail-snippet></code></pre>
+
+          <section class="evidence-detail-reason">
+            <span class="evidence-mini-label">Auditor reasoning</span>
+            <p data-evidence-detail-reason>--</p>
+          </section>
+
+          <footer class="evidence-detail-foot">
+            <dl class="evidence-detail-attrs">
+              <div>
+                <dt>Retrieval</dt>
+                <dd class="mono" data-evidence-detail-retrieval>--</dd>
+              </div>
+              <div>
+                <dt>Confidence</dt>
+                <dd class="mono" data-evidence-detail-confidence>--</dd>
+              </div>
+              <div>
+                <dt>Source</dt>
+                <dd class="mono" data-evidence-detail-source>--</dd>
+              </div>
+            </dl>
+            <a class="evidence-detail-link" data-evidence-detail-link href="/dashboard">
+              Open audit
+              <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+                <path d="M2 6h7M6 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </footer>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>

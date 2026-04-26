@@ -1,0 +1,6 @@
+dataset: CIFAR10
+optimizer: AdamW
+learning_rate: 3e-4
+batch_size: 128
+epochs: 50
+

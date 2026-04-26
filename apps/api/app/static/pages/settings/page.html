@@ -1,0 +1,344 @@
+<section class="settings-view" aria-label="Settings">
+  <header class="dashboard-header settings-header">
+    <div>
+      <h1>Settings</h1>
+      <p>Configure ReproClaw integrations and preferences.</p>
+    </div>
+    <div class="header-actions">
+      <span class="settings-saved-pill" id="settings-saved-pill" data-state="hidden" aria-live="polite">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M3.5 8.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Saved</span>
+      </span>
+    </div>
+  </header>
+
+  <div class="settings-layout">
+    <aside class="settings-subnav" aria-label="Settings sections">
+      <span class="nav-label">Sections</span>
+      <a class="settings-subnav-item" href="#settings-account" data-section="account">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <circle cx="8" cy="6" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M3 13c.8-2.4 2.8-3.6 5-3.6S12.2 10.6 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span>Account</span>
+      </a>
+      <a class="settings-subnav-item" href="#settings-agentmail" data-section="agentmail">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <rect x="2" y="3.5" width="12" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        </svg>
+        <span>AgentMail</span>
+      </a>
+      <a class="settings-subnav-item" href="#settings-nia" data-section="nia">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span>Nia</span>
+      </a>
+      <a class="settings-subnav-item" href="#settings-models" data-section="models">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M8 2l2 3 3 .5-2.2 2.2.6 3.3L8 9.5 4.6 11l.6-3.3L3 5.5 6 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        </svg>
+        <span>Models</span>
+      </a>
+      <a class="settings-subnav-item" href="#settings-defaults" data-section="defaults">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <rect x="3" y="2.5" width="10" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span>Audit defaults</span>
+      </a>
+      <a class="settings-subnav-item" href="#settings-data" data-section="data">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <ellipse cx="8" cy="4" rx="5" ry="1.8" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M3 4v8c0 1 2.2 1.8 5 1.8s5-.8 5-1.8V4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M3 8c0 1 2.2 1.8 5 1.8s5-.8 5-1.8" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <span>Data</span>
+      </a>
+      <a class="settings-subnav-item settings-subnav-danger" href="#settings-danger" data-section="danger">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M8 2.5L14 13H2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          <path d="M8 6.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="8" cy="11.4" r="0.6" fill="currentColor" />
+        </svg>
+        <span>Danger zone</span>
+      </a>
+    </aside>
+
+    <div class="settings-form" id="settings-form">
+      <article class="panel settings-panel" id="settings-account" aria-labelledby="settings-account-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">Account</span>
+          <h2 id="settings-account-h">Profile and plan</h2>
+          <p class="settings-panel-sub">Identity used in audit replies and report headers.</p>
+        </header>
+        <div class="settings-account-grid">
+          <div class="settings-account-avatar" aria-hidden="true">
+            <span id="settings-account-initials">AO</span>
+          </div>
+          <dl class="settings-keyvals">
+            <div>
+              <dt>Email</dt>
+              <dd id="settings-account-email">researcher@reproclaw.dev</dd>
+            </div>
+            <div>
+              <dt>Organization</dt>
+              <dd id="settings-account-org">ReproClaw Hackathon Lab</dd>
+            </div>
+            <div>
+              <dt>Plan</dt>
+              <dd>
+                <span class="settings-pill settings-pill-accent">Hackathon Pro</span>
+                <span class="settings-meta">renews 2026-05-25</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="save-account">Save profile</button>
+          <button class="button settings-button settings-button-ghost" type="button" data-settings-action="sign-out">Sign out</button>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel" id="settings-agentmail" aria-labelledby="settings-agentmail-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">AgentMail</span>
+          <h2 id="settings-agentmail-h">Inbox and webhook</h2>
+          <p class="settings-panel-sub">Where researchers send a paper + repo to start an audit.</p>
+          <span class="chat-status-pill settings-status" data-state="idle">
+            <span class="live-dot"></span>
+            <span>Connected</span>
+          </span>
+        </header>
+        <div class="settings-fields">
+          <label class="settings-field">
+            <span class="settings-label">Inbox address</span>
+            <div class="settings-input-group">
+              <input class="settings-input settings-input-mono" id="settings-agentmail-inbox" type="text" value="audit@reproclaw.agentmail.app" readonly aria-readonly="true" />
+              <button class="settings-input-action" type="button" data-settings-copy="settings-agentmail-inbox" aria-label="Copy inbox address">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <rect x="5" y="5" width="8" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M3 11V3.5C3 2.7 3.7 2 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+          </label>
+          <label class="settings-field">
+            <span class="settings-label">Webhook secret</span>
+            <div class="settings-input-group">
+              <input class="settings-input settings-input-mono" id="settings-agentmail-secret" type="password" value="whsec_5b4e2d8a91f04c6789ab12cd34ef56789012345678abcdef" readonly aria-readonly="true" />
+              <button class="settings-input-action" type="button" data-settings-toggle="settings-agentmail-secret" aria-pressed="false" aria-label="Reveal secret">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                  <circle cx="8" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </button>
+            </div>
+            <span class="settings-hint">Rotate from the AgentMail dashboard. Pasted secrets are not persisted in this scaffold.</span>
+          </label>
+        </div>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="agentmail-test">Send test message</button>
+          <a class="settings-link" href="https://agentmail.dev" target="_blank" rel="noreferrer">
+            Open AgentMail dashboard
+            <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 6h7M6 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </a>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel" id="settings-nia" aria-labelledby="settings-nia-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">Nia</span>
+          <h2 id="settings-nia-h">Code search source</h2>
+          <p class="settings-panel-sub">Local repo source used by the auditor for evidence retrieval.</p>
+        </header>
+        <div class="settings-fields">
+          <label class="settings-field">
+            <span class="settings-label">Source ID</span>
+            <div class="settings-input-group">
+              <input class="settings-input settings-input-mono" id="settings-nia-source" type="text" value="a637b2fa-94e4-4742-a192-73a80ed15017" readonly aria-readonly="true" />
+              <button class="settings-input-action" type="button" data-settings-copy="settings-nia-source" aria-label="Copy source ID">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <rect x="5" y="5" width="8" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M3 11V3.5C3 2.7 3.7 2 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+          </label>
+          <div class="settings-keyvals settings-keyvals-inline">
+            <div>
+              <dt>Last sync</dt>
+              <dd><span class="settings-meta-mono" id="settings-nia-sync">2026-04-25 14:02 UTC</span></dd>
+            </div>
+            <div>
+              <dt>Indexed files</dt>
+              <dd><span class="settings-meta-mono">412</span></dd>
+            </div>
+          </div>
+        </div>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="nia-resync">Resync now</button>
+          <a class="settings-link" href="https://app.trynia.ai" target="_blank" rel="noreferrer">
+            Open Nia dashboard
+            <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 6h7M6 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </a>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel" id="settings-models" aria-labelledby="settings-models-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">Models</span>
+          <h2 id="settings-models-h">Anthropic configuration</h2>
+          <p class="settings-panel-sub">Model and tokens used for claim extraction and report drafting.</p>
+        </header>
+        <div class="settings-fields">
+          <label class="settings-field">
+            <span class="settings-label">Anthropic API key</span>
+            <input class="settings-input settings-input-mono" id="settings-models-key" type="text" value="sk-ant-***************************a4f9" readonly aria-readonly="true" />
+            <span class="settings-hint">Last 4 characters shown. Rotate from the Anthropic console.</span>
+          </label>
+          <label class="settings-field">
+            <span class="settings-label">Model</span>
+            <select class="settings-input settings-select" id="settings-models-model">
+              <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6</option>
+              <option value="claude-opus-4-7">Claude Opus 4.7</option>
+              <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+            </select>
+          </label>
+          <div class="settings-field">
+            <span class="settings-label">Max output tokens</span>
+            <div class="settings-slider-row">
+              <input class="settings-slider" type="range" min="512" max="8192" step="256" value="2048" id="settings-models-tokens" disabled aria-readonly="true" />
+              <span class="settings-meta-mono" id="settings-models-tokens-value">2048</span>
+            </div>
+            <span class="settings-hint">Read-only in this scaffold.</span>
+          </div>
+          <div class="settings-field settings-toggle-row">
+            <div>
+              <span class="settings-label">Prompt cache</span>
+              <span class="settings-hint">Reuse system prompts across audit runs.</span>
+            </div>
+            <span class="settings-toggle" data-state="on" aria-disabled="true" role="switch" aria-checked="true">
+              <span class="settings-toggle-thumb"></span>
+            </span>
+          </div>
+        </div>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="save-models">Save model settings</button>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel" id="settings-defaults" aria-labelledby="settings-defaults-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">Audit defaults</span>
+          <h2 id="settings-defaults-h">Templates and tools</h2>
+          <p class="settings-panel-sub">Defaults applied to every new audit unless overridden.</p>
+        </header>
+        <div class="settings-fields">
+          <label class="settings-field">
+            <span class="settings-label">Default email subject</span>
+            <textarea class="settings-input settings-textarea" id="settings-defaults-subject" rows="2">ReproClaw audit ready: {{paper_title}}</textarea>
+            <span class="settings-hint">Available variables: {{paper_title}}, {{score}}, {{verdict}}.</span>
+          </label>
+          <label class="settings-field">
+            <span class="settings-label">Default question prompt</span>
+            <textarea class="settings-input settings-textarea" id="settings-defaults-prompt" rows="4">Audit this paper for reproducibility. Extract concrete numerical claims, search the linked repository for matching code paths, and flag any unsupported or contradicted statements.</textarea>
+          </label>
+          <label class="settings-field">
+            <span class="settings-label">Max claims per audit</span>
+            <input class="settings-input settings-input-narrow" type="number" id="settings-defaults-max" value="24" min="1" max="100" />
+          </label>
+          <fieldset class="settings-field settings-fieldset">
+            <legend class="settings-label">Tool selection</legend>
+            <label class="settings-check">
+              <input type="checkbox" checked />
+              <span class="settings-check-box" aria-hidden="true"></span>
+              <span class="settings-check-label">
+                <strong>search_arxiv</strong>
+                <span class="settings-hint">Resolve papers from arXiv IDs and titles.</span>
+              </span>
+            </label>
+            <label class="settings-check">
+              <input type="checkbox" checked />
+              <span class="settings-check-box" aria-hidden="true"></span>
+              <span class="settings-check-label">
+                <strong>search_github</strong>
+                <span class="settings-hint">Find code paths and repos matching paper claims.</span>
+              </span>
+            </label>
+            <label class="settings-check">
+              <input type="checkbox" checked />
+              <span class="settings-check-box" aria-hidden="true"></span>
+              <span class="settings-check-label">
+                <strong>fetch_arxiv</strong>
+                <span class="settings-hint">Download arXiv PDFs for claim extraction.</span>
+              </span>
+            </label>
+          </fieldset>
+        </div>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="save-defaults">Save defaults</button>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel" id="settings-data" aria-labelledby="settings-data-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow">Data</span>
+          <h2 id="settings-data-h">Storage and exports</h2>
+          <p class="settings-panel-sub">Local SQLite store. Export anytime, JSON only.</p>
+        </header>
+        <div class="settings-stats" id="settings-data-stats" data-state="loading">
+          <article class="settings-stat">
+            <span class="settings-stat-label">Audits</span>
+            <strong class="settings-stat-value" id="settings-stat-audits">--</strong>
+          </article>
+          <article class="settings-stat">
+            <span class="settings-stat-label">Claims</span>
+            <strong class="settings-stat-value" id="settings-stat-claims">--</strong>
+          </article>
+          <article class="settings-stat">
+            <span class="settings-stat-label">Conversations</span>
+            <strong class="settings-stat-value" id="settings-stat-conversations">--</strong>
+          </article>
+          <article class="settings-stat">
+            <span class="settings-stat-label">Storage estimate</span>
+            <strong class="settings-stat-value" id="settings-stat-storage">--</strong>
+          </article>
+        </div>
+        <p class="settings-stats-state" id="settings-data-state-msg">Loading counts…</p>
+        <footer class="settings-panel-foot">
+          <button class="button settings-button" type="button" data-settings-action="export-json">Export all audits as JSON</button>
+          <button class="button settings-button settings-button-ghost" type="button" data-settings-action="refresh-data">Refresh</button>
+        </footer>
+      </article>
+
+      <article class="panel settings-panel settings-panel-danger" id="settings-danger" aria-labelledby="settings-danger-h">
+        <header class="settings-panel-head">
+          <span class="settings-eyebrow settings-eyebrow-danger">Danger zone</span>
+          <h2 id="settings-danger-h">Destructive actions</h2>
+          <p class="settings-panel-sub">These actions cannot be undone. Confirm twice in production.</p>
+        </header>
+        <div class="settings-danger-rows">
+          <div class="settings-danger-row">
+            <div>
+              <strong>Reset demo data</strong>
+              <p>Replaces audits and claims with the bundled demo seed.</p>
+            </div>
+            <button class="button settings-button-danger" type="button" data-settings-action="reset-demo">Reset demo data</button>
+          </div>
+          <div class="settings-danger-row">
+            <div>
+              <strong>Delete all conversations</strong>
+              <p>Removes every chat thread and message. Audits are kept.</p>
+            </div>
+            <button class="button settings-button-danger" type="button" data-settings-action="delete-conversations">Delete all conversations</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,191 @@
+<section class="agentmail-view" aria-label="AgentMail">
+  <header class="dashboard-header agentmail-view-header">
+    <div>
+      <h1>AgentMail</h1>
+      <p>Audits arriving by email.</p>
+    </div>
+    <div class="header-actions agentmail-view-actions">
+      <span class="chat-status-pill agentmail-view-status" data-state="idle" data-agentmail-status>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span data-agentmail-status-label>Connecting</span>
+      </span>
+      <button class="button secondary small agentmail-view-copy" type="button" data-agentmail-copy aria-label="Copy inbox address">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          <path d="M3 10.5V3.5A1.5 1.5 0 0 1 4.5 2h7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span data-agentmail-copy-label>Copy inbox</span>
+      </button>
+      <button class="button secondary small agentmail-view-refresh" type="button" data-agentmail-refresh>
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M13.5 7.5a5.5 5.5 0 1 0-1.4 4.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M13.5 3v4h-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="agentmail-view-banner" data-agentmail-banner hidden>
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path d="M8 4.5v4M8 11h.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <div>
+      <strong>Webhook not yet wired.</strong>
+      <span>No threads carry an AgentMail thread_id. Showing locally created audits as a stand-in inbox.</span>
+    </div>
+  </div>
+
+  <article class="panel agentmail-view-shell">
+    <aside class="agentmail-view-rail" aria-label="Folders">
+      <span class="nav-label agentmail-view-rail-label">Folders</span>
+      <ul class="agentmail-view-folders" data-agentmail-folders>
+        <li>
+          <button type="button" class="agentmail-view-folder is-active" data-agentmail-folder="inbox">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M2 9.5l1.6-5A1.5 1.5 0 0 1 5 3.5h6a1.5 1.5 0 0 1 1.4 1L14 9.5v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              <path d="M2 9.5h3.5l1 1.5h3l1-1.5H14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+            </svg>
+            <span>Inbox</span>
+            <span class="agentmail-view-folder-count" data-agentmail-folder-count="inbox">0</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="agentmail-view-folder" data-agentmail-folder="in_progress">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M8 5v3l2 1.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>In progress</span>
+            <span class="agentmail-view-folder-count" data-agentmail-folder-count="in_progress">0</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="agentmail-view-folder" data-agentmail-folder="completed">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M5.5 8.2l1.8 1.8L10.8 6.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Completed</span>
+            <span class="agentmail-view-folder-count" data-agentmail-folder-count="completed">0</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="agentmail-view-folder" data-agentmail-folder="failed">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M6 6l4 4M10 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            <span>Failed</span>
+            <span class="agentmail-view-folder-count" data-agentmail-folder-count="failed">0</span>
+          </button>
+        </li>
+      </ul>
+
+      <span class="nav-label agentmail-view-rail-label agentmail-view-rail-label-mid">Inbox</span>
+      <p class="agentmail-view-inbox-address" data-agentmail-inbox-address>audits@reproclaw.agentmail.io</p>
+    </aside>
+
+    <section class="agentmail-view-list" aria-label="Threads">
+      <header class="agentmail-view-list-head">
+        <div>
+          <h2 data-agentmail-list-title>Inbox</h2>
+          <p data-agentmail-list-subtitle>Threads addressed to your audit inbox.</p>
+        </div>
+        <span class="agentmail-view-list-count" data-agentmail-list-count>0</span>
+      </header>
+
+      <ul class="agentmail-view-threads" data-agentmail-threads role="list"></ul>
+
+      <div class="agentmail-view-state agentmail-view-loading" data-agentmail-loading hidden>
+        <span class="agentmail-view-spinner" aria-hidden="true"></span>
+        <p>Fetching threads...</p>
+      </div>
+
+      <div class="agentmail-view-state agentmail-view-empty" data-agentmail-empty hidden>
+        <h3>No threads here yet</h3>
+        <p data-agentmail-empty-msg>When researchers email your audit inbox, every thread lands here.</p>
+      </div>
+
+      <div class="agentmail-view-state agentmail-view-error" data-agentmail-error hidden>
+        <h3>Could not load threads</h3>
+        <p data-agentmail-error-msg>The audits endpoint did not respond.</p>
+        <button type="button" class="button secondary small" data-agentmail-retry>Retry</button>
+      </div>
+    </section>
+
+    <section class="agentmail-view-detail" aria-label="Thread detail" data-agentmail-detail>
+      <div class="agentmail-view-detail-empty" data-agentmail-detail-empty>
+        <h3>Select a thread</h3>
+        <p>Pick an inbox row to read the request and ReproClaw's audit reply.</p>
+      </div>
+
+      <article class="agentmail-view-detail-body" data-agentmail-detail-body hidden>
+        <header class="agentmail-view-detail-head">
+          <span class="chat-eyebrow" data-agentmail-detail-eyebrow>Thread</span>
+          <h2 data-agentmail-detail-subject>Subject</h2>
+          <dl class="agentmail-view-detail-meta">
+            <div>
+              <dt>From</dt>
+              <dd data-agentmail-detail-from>--</dd>
+            </div>
+            <div>
+              <dt>To</dt>
+              <dd data-agentmail-detail-to>--</dd>
+            </div>
+            <div>
+              <dt>Date</dt>
+              <dd data-agentmail-detail-date>--</dd>
+            </div>
+            <div>
+              <dt>Thread</dt>
+              <dd class="mono" data-agentmail-detail-thread>--</dd>
+            </div>
+          </dl>
+          <div class="agentmail-view-detail-pills">
+            <span class="badge agentmail-view-status-badge" data-agentmail-detail-status>queued</span>
+            <span class="badge agentmail-view-verdict-badge" data-agentmail-detail-verdict hidden>verdict</span>
+          </div>
+        </header>
+
+        <section class="agentmail-view-message agentmail-view-message-incoming">
+          <header class="agentmail-view-message-head">
+            <span class="agentmail-view-message-label">Original request</span>
+            <span class="agentmail-view-message-meta" data-agentmail-detail-incoming-meta>--</span>
+          </header>
+          <blockquote class="agentmail-view-quote" data-agentmail-detail-body>--</blockquote>
+          <ul class="agentmail-view-resources" data-agentmail-detail-resources></ul>
+        </section>
+
+        <section class="agentmail-view-message agentmail-view-message-reply" data-agentmail-detail-reply-section>
+          <header class="agentmail-view-message-head">
+            <span class="agentmail-view-message-label">ReproClaw audit reply</span>
+            <span class="agentmail-view-message-meta" data-agentmail-detail-reply-meta>--</span>
+          </header>
+          <div class="agentmail-view-report" data-agentmail-detail-report>--</div>
+        </section>
+
+        <form class="agentmail-view-composer" data-agentmail-composer>
+          <label class="sr-only" for="agentmail-composer-input">Reply</label>
+          <textarea
+            id="agentmail-composer-input"
+            data-agentmail-composer-input
+            rows="3"
+            placeholder="Reply in-thread..."
+            autocomplete="off"
+          ></textarea>
+          <div class="agentmail-view-composer-foot">
+            <span class="agentmail-view-composer-hint">Replies post in the same thread via AgentMail.</span>
+            <button type="submit" class="button primary small" data-agentmail-composer-send>
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Send reply</span>
+            </button>
+          </div>
+        </form>
+      </article>
+    </section>
+  </article>
+</section>

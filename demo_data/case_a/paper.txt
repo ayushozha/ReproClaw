@@ -1,0 +1,7 @@
+ReproClaw fallback paper A.
+
+We evaluate on CIFAR-10 and report 91.2 percent accuracy.
+We train for 100 epochs with the AdamW optimizer.
+The learning rate is 3e-4 and the batch size is 128.
+We report the mean over 5 seeds.
+

@@ -1,0 +1,156 @@
+<section class="reports-view" aria-label="Reports">
+  <header class="dashboard-header reports-header">
+    <div>
+      <h1>Reports</h1>
+      <p>Every audit you've shipped.</p>
+    </div>
+    <div class="header-actions reports-actions">
+      <span class="chat-status-pill reports-sync-pill" data-state="idle">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span data-reports-sync-label>Synced moments ago</span>
+      </span>
+      <button class="button secondary reports-refresh" type="button" data-reports-refresh>
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" width="16" height="16">
+          <path d="M2.5 8a5.5 5.5 0 0 1 9.6-3.7M13.5 8a5.5 5.5 0 0 1-9.6 3.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M12.2 2v2.6h-2.6M3.8 14v-2.6h2.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  <section class="reports-controls" aria-label="Filter reports">
+    <div class="reports-search">
+      <svg class="reports-search-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false" width="16" height="16">
+        <circle cx="7" cy="7" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="M10.2 10.2 13.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <label class="sr-only" for="reports-search-input">Search reports</label>
+      <input
+        id="reports-search-input"
+        type="search"
+        autocomplete="off"
+        placeholder="Search by paper, repo, or score band..."
+        data-reports-search
+      />
+    </div>
+
+    <div class="reports-filter-group" role="group" aria-label="Score band filter">
+      <span class="nav-label reports-filter-label">Band</span>
+      <div class="reports-chips" data-reports-band-chips>
+        <button class="reports-chip active" type="button" data-reports-band="all">All</button>
+        <button class="reports-chip" type="button" data-reports-band="strong">Strong &ge; 85</button>
+        <button class="reports-chip" type="button" data-reports-band="concerns">Concerns 70&ndash;84</button>
+        <button class="reports-chip" type="button" data-reports-band="significant">Significant 50&ndash;69</button>
+        <button class="reports-chip" type="button" data-reports-band="not">Not reproducible &lt; 50</button>
+      </div>
+    </div>
+
+    <div class="reports-filter-group" role="group" aria-label="Date filter">
+      <span class="nav-label reports-filter-label">Date</span>
+      <div class="reports-chips" data-reports-date-chips>
+        <button class="reports-chip active" type="button" data-reports-date="all">All</button>
+        <button class="reports-chip" type="button" data-reports-date="today">Today</button>
+        <button class="reports-chip" type="button" data-reports-date="7">7 days</button>
+        <button class="reports-chip" type="button" data-reports-date="30">30 days</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="reports-summary" aria-label="Reports summary">
+    <article class="reports-stat">
+      <span class="nav-label">Total reports</span>
+      <strong data-reports-stat="total">--</strong>
+      <p>Audits with shipped reports</p>
+    </article>
+    <article class="reports-stat">
+      <span class="nav-label">Average score</span>
+      <strong data-reports-stat="avg">--</strong>
+      <p>Across the visible library</p>
+    </article>
+    <article class="reports-stat">
+      <span class="nav-label">Strongly reproducible</span>
+      <strong data-reports-stat="strong">--</strong>
+      <p>Share scoring 85 or higher</p>
+    </article>
+    <article class="reports-stat">
+      <span class="nav-label">Flagged</span>
+      <strong data-reports-stat="flagged">--</strong>
+      <p>Share with significant concerns</p>
+    </article>
+  </section>
+
+  <section class="reports-pane" aria-label="Report library">
+    <article class="panel reports-list-panel" aria-label="Report list">
+      <header class="reports-list-head">
+        <div>
+          <h2>Library</h2>
+          <p data-reports-count>Loading reports...</p>
+        </div>
+      </header>
+      <div class="reports-list-scroll" data-reports-list role="list">
+        <div class="reports-list-state" data-reports-list-state>
+          <p>Loading reports...</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel reports-reader-panel" aria-label="Report reader" data-reports-reader>
+      <div class="reports-reader-empty" data-reports-reader-empty>
+        <h3>Select a report</h3>
+        <p>Pick an audit from the library to read the full report ReproClaw mailed back.</p>
+      </div>
+
+      <div class="reports-reader-body" data-reports-reader-body hidden>
+        <header class="reports-reader-head">
+          <span class="chat-eyebrow">Email reply</span>
+          <h2 data-reports-reader-subject>Subject</h2>
+          <div class="reports-reader-from">
+            <span class="reports-from-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false" aria-hidden="true">
+                <ellipse cx="14" cy="16" rx="5" ry="8" />
+                <ellipse cx="24" cy="11" rx="5" ry="8" />
+                <ellipse cx="34" cy="16" rx="5" ry="8" />
+                <ellipse cx="9" cy="27" rx="4" ry="6" />
+                <ellipse cx="39" cy="27" rx="4" ry="6" />
+                <path d="M13 35c0-8 5-14 11-14s11 6 11 14c0 5-4 8-11 8s-11-3-11-8Z" />
+              </svg>
+            </span>
+            <div>
+              <strong>From ReproClaw</strong>
+              <p data-reports-reader-meta>audit &middot; date</p>
+            </div>
+            <div class="reports-reader-actions">
+              <button class="button secondary small" type="button" data-reports-copy>Copy report text</button>
+              <a class="button secondary small" data-reports-open href="#">Open audit detail</a>
+            </div>
+          </div>
+        </header>
+
+        <section class="reports-reader-meta-strip" aria-label="Score summary">
+          <div class="reports-meta-score">
+            <strong data-reports-reader-score>--</strong>
+            <span>/ 100</span>
+          </div>
+          <div class="reports-meta-progress-wrap">
+            <div class="score-progress" aria-hidden="true">
+              <span data-reports-reader-progress></span>
+            </div>
+            <p class="reports-meta-band">
+              <span class="reports-band-dot" data-reports-reader-band-dot></span>
+              <span data-reports-reader-band>Loading...</span>
+            </p>
+          </div>
+          <dl class="reports-meta-counts" data-reports-reader-counts>
+            <div><dt>Verified</dt><dd data-reports-count-verified>0</dd></div>
+            <div><dt>Flagged</dt><dd data-reports-count-flagged>0</dd></div>
+            <div><dt>Review</dt><dd data-reports-count-review>0</dd></div>
+            <div><dt>Unsupported</dt><dd data-reports-count-unsupported>0</dd></div>
+          </dl>
+        </section>
+
+        <section class="reports-reader-doc" data-reports-reader-doc aria-label="Report body"></section>
+      </div>
+    </article>
+  </section>
+</section>
