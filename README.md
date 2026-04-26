@@ -1,27 +1,233 @@
+<div align="center">
+
+<img src="./apps/api/app/static/logos/reproclaw.svg" alt="ReproClaw" width="420" />
+
 # ReproClaw
 
-Email a paper and repo. Get a reproducibility audit.
+### Email a paper and a repo. Get a reproducibility audit back.
 
-ReproClaw is an email-native reproducibility auditor for ML papers. A researcher forwards a paper + GitHub repo to an AgentMail inbox; ReproClaw extracts every auditable claim, uses Nia to align each claim to concrete code evidence, scores the repo on a transparent 0–100 scale, and replies in-thread with a reviewer-grade report citing exact file paths and line ranges.
+**An email-native AI research auditor that turns paper claims into code-backed evidence, scores reproducibility, and drafts a reviewer-grade report.**
 
-Built for **OpenClaw Hackathon · Eragon × Nozomio × AgentMail**.
+[![OpenClaw Hackathon](https://img.shields.io/badge/OpenClaw-Hackathon-orange)](https://github.com/ayushozha/ReproClaw)
+[![AgentMail](https://img.shields.io/badge/Powered%20by-AgentMail-155EEF)](https://docs.agentmail.to)
+[![Nozomio Nia](https://img.shields.io/badge/Code%20memory-Nozomio%20Nia-1B4ED8)](https://trynia.ai)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)](https://fastapi.tiangolo.com)
+[![No frontend framework](https://img.shields.io/badge/Frontend-Plain%20HTML%20CSS%20JS-11131A)](#design-system)
 
-## What it does
+</div>
+
+---
+
+## The Problem
+
+AI research has a reproducibility bottleneck.
+
+Every week, new ML papers claim better accuracy, cleaner training recipes, stronger baselines, and faster inference. Those claims often depend on details buried across PDFs, READMEs, config files, notebooks, training scripts, and evaluation code.
+
+A reviewer who wants to verify one paper has to:
+
+- read the paper and extract concrete claims,
+- clone the repository,
+- find the relevant configs and scripts,
+- compare paper text against implementation evidence,
+- decide what is verified, missing, or contradicted,
+- write a defensible report with file paths and reasoning.
+
+That is hours of manual work. ReproClaw makes the first pass take minutes.
+
+---
+
+## What ReproClaw Does
+
+ReproClaw introduces a simple primitive:
 
 ```text
-Email received → Paper parsed → Claims extracted → Repository indexed (Nia)
-              → Claims aligned to code evidence → Reproducibility score
-              → AgentMail reply in-thread with the report
+paper claim -> code evidence -> reproducibility verdict
 ```
 
-Plus a streaming research chat (Claude Sonnet 4.6, with arXiv + GitHub search tools) for finding the right paper and its code in one place, and a per-page dashboard surface for Claims, Evidence, AgentMail, Reports, Repositories, and Settings.
+Send or enter an arXiv paper and a GitHub repository. ReproClaw:
 
-## Co-host integrations
+1. Resolves the paper from an arXiv URL, arXiv ID, PDF URL, PDF upload, or title.
+2. Finds a likely matching GitHub repository when one is not provided.
+3. Extracts auditable claims from the paper.
+4. Indexes and searches the repository with Nia and local fallbacks.
+5. Checks claims against configs, scripts, README evidence, and stored snippets.
+6. Scores reproducibility on a transparent 0-100 scale.
+7. Generates an email-style report with verified, flagged, and needs-review findings.
+8. Lets the user inspect every audit stage in the dashboard.
+9. Drafts an AgentMail report email for the author when the audit is complete.
 
-- **AgentMail** — webhook intake, thread-aware reply for both audit reports and follow-up explanations, dedup by `message_id`.
-- **Nia (Nozomio)** — repo indexing on audit start, semantic code search via `ContextSearchClient.search` / `read`, deterministic local fallback when the API isn't reachable.
+```text
+Audit request
+  -> find paper
+  -> find repo
+  -> parse paper
+  -> extract claims
+  -> clone/index repo
+  -> search evidence with Nia
+  -> check claims
+  -> generate report
+  -> optional AgentMail delivery
+```
 
-## Run API
+---
+
+## Why It Matters
+
+Reproducibility is not a nice-to-have. It is how research becomes science.
+
+ReproClaw helps catch issues like:
+
+- paper says `epochs: 100`, repo default config says `epochs: 50`;
+- paper reports a metric that does not appear in the evaluation script;
+- paper claims multi-seed aggregation, repo only documents one run;
+- paper cites a dataset split that is missing from the code;
+- repo supports the method, but key evidence is scattered across files.
+
+The goal is not to replace reviewers. The goal is to put the highest-risk claims and the exact evidence paths in front of them immediately.
+
+---
+
+## Sponsor Integrations
+
+### AgentMail: the product surface
+
+AgentMail lets ReproClaw live where researchers already work: email.
+
+ReproClaw uses AgentMail for:
+
+- inbound audit requests,
+- webhook-driven intake,
+- thread-aware report replies,
+- follow-up explanations like `explain claim 3`,
+- optional outbound author report delivery.
+
+The email thread becomes the audit interface.
+
+### Nozomio Nia: the code memory layer
+
+Nia gives ReproClaw persistent codebase memory and semantic retrieval.
+
+ReproClaw uses Nia for:
+
+- project-wide indexed context,
+- repository search during claim checking,
+- evidence retrieval from claim text,
+- durable code memory across agent sessions,
+- local fallback when remote retrieval is unavailable.
+
+This is what turns an unsupported natural-language claim into a concrete evidence path.
+
+### OpenClaw x Eragon: agents that act
+
+ReproClaw is not just a chatbot. It receives a real request, searches real artifacts, produces a structured audit, and can defend the result in a live thread.
+
+---
+
+## Current Product Surfaces
+
+| Surface | What it does |
+| --- | --- |
+| Landing page | Explains the paper-to-audit workflow and shows the product story. |
+| Live audit dashboard | Starts audits, follows progress, shows completed scores, and inspects every pipeline stage. |
+| Stage inspector | Click any progress stage to see event messages, timestamps, inputs, claim counts, score, and retrieval context. |
+| Research chat | Streaming Claude Sonnet 4.6 chat with arXiv and GitHub tools for finding papers and repos. |
+| Search | Application-wide search over audits, claims, reports, evidence, and Nia-indexed context. |
+| Claims | Evidence-backed claim table. |
+| Evidence | Claim evidence detail view. |
+| AgentMail | Report and thread surface for email-native flows. |
+| Reports | Completed audit report library. |
+| Repositories | Repository context and audit sources. |
+
+---
+
+## Demo Flow
+
+### 1. Start an audit
+
+Use the dashboard or send an AgentMail request containing a paper and optionally a repo.
+
+```text
+Paper: Semi-Supervised Classification with Graph Convolutional Networks
+Repo:  https://github.com/tkipf/pygcn
+
+Please check whether the reported setup and implementation evidence line up.
+```
+
+### 2. Watch the pipeline
+
+The dashboard moves through:
+
+```text
+Audit request received
+Finding the paper
+Paper found
+Finding the GitHub repo
+GitHub repo found
+Parsing the paper
+Paper parsed
+Finding the claims
+Claims extracted
+Cloning the repo
+Repo cloned
+Searching evidence with Nozomio
+Evidence searched
+Checking claims against code
+Claims checked
+Generating the report
+Report generated
+Email decision
+```
+
+Every stage is clickable and inspectable.
+
+### 3. Review the result
+
+The completed audit shows:
+
+- reproducibility score,
+- verified / flagged / needs-review counts,
+- claim table,
+- evidence snippets,
+- generated report,
+- editable author email draft.
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.12+
+- `uv`
+- AgentMail API key and inbox ID
+- Nia API key or local Nia source
+- Anthropic API key for the research chat
+
+### Configure
+
+Create `.env` from `.env.example`:
+
+```text
+AGENTMAIL_API_KEY=
+AGENTMAIL_INBOX_ID=
+AGENTMAIL_WEBHOOK_SECRET=
+
+NIA_API_KEY=
+NIA_PROJECT_ID=
+NIA_SOURCE_IDS=
+
+ANTHROPIC_API_KEY=
+
+DATABASE_URL=sqlite:///./reproclaw.db
+REPO_CACHE_DIR=.cache/repos
+PDF_CACHE_DIR=.cache/papers
+PUBLIC_APP_URL=
+API_BASE_URL=http://localhost:8000
+AUDIT_STEP_DELAY_S=0.6
+```
+
+### Run
 
 ```powershell
 cd apps/api
@@ -29,165 +235,199 @@ uv sync
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
-Open <http://localhost:8000> for the landing page or <http://localhost:8000/dashboard> for the live audit dashboard.
+Open:
 
-## Demo audits
+- Landing page: <http://localhost:8000>
+- Dashboard: <http://localhost:8000/dashboard>
+- Health check: <http://localhost:8000/health>
 
-Both demos run end-to-end against fixtures in `demo_data/` — no network required.
+---
+
+## Demo Audits
+
+Both demo audits run against local fixtures in `demo_data/`.
 
 ```powershell
-# Case A — flags `epochs: 100 (paper) vs 50 (config)`
+# Case A: flags epochs mismatch
 Invoke-RestMethod -Method Post -Uri "http://localhost:8000/audits" `
   -ContentType "application/json" `
   -Body '{"paper_url":"demo:case_a","repo_url":"demo:case_a","question":"Check accuracy and training setup."}'
 
-# Case B — flags undocumented multi-seed aggregation
+# Case B: flags missing multi-seed aggregation
 Invoke-RestMethod -Method Post -Uri "http://localhost:8000/audits" `
   -ContentType "application/json" `
   -Body '{"paper_url":"demo:case_b","repo_url":"demo:case_b","question":"Check seed aggregation."}'
 ```
 
-Watch the dashboard's Live Audit view populate the timeline, claim table, and evidence panel as the pipeline runs. Both completed audits also appear under Reports, AgentMail (as threads), and Repositories.
+Then open <http://localhost:8000/dashboard> and inspect the live progress timeline, claims, evidence, and generated report.
 
-## Live Audit start flow
+---
 
-The dashboard's audit-start panel accepts paper input as **arXiv URL / arXiv ID / PDF URL** or a **drag-and-drop PDF upload** (extracted via `pypdf`). The repo field is optional — `Find for me` resolves the paper through the arXiv Atom API and proposes the top 3 GitHub repos via the Search API (no LLM round-trip).
+## API Surface
 
 ```text
-arXiv lookup → GitHub search → Nia index → Audit running
+POST /audits                              Create an audit
+POST /audits/discover                     Resolve paper and GitHub candidates
+POST /audits/upload-paper                 Upload PDF and cache parsed text
+GET  /audits                              List audits
+GET  /audits/{id}                         Get audit detail
+GET  /audits/{id}/events                  Stream pipeline events
+POST /audits/{id}/claims/{cid}/explain    Explain a claim with evidence
+POST /audits/{id}/followups               Handle AgentMail follow-up questions
+POST /audits/{id}/email-report            Send a completed report through AgentMail
+
+POST /webhooks/agentmail                  AgentMail webhook intake
+
+POST /chat/conversations                  Create research chat conversation
+GET  /chat/conversations                  List conversations
+GET  /chat/conversations/{id}             Conversation history
+POST /chat/conversations/{id}/messages    Non-streaming send
+POST /chat/conversations/{id}/messages/stream
+                                            Streaming send over SSE
+
+GET  /search                              App-wide search over SQLite and Nia
+GET  /                                    Landing page
+GET  /dashboard                           Single-page dashboard
+GET  /health                              Service ping
 ```
 
-## Research chat (streaming)
+---
 
-Click `Chat` in the sidebar (or press `/`). The chat panel runs a Claude Sonnet 4.6 agent with two tools:
+## Reproducibility Score
 
-- `search_arxiv(query, max_results)` — arXiv Atom API, throttled to 3.2 s and Retry-After-aware.
-- `search_github(query, max_results)` — anonymous GitHub search.
+The score is intentionally transparent:
 
-Responses stream over Server-Sent Events. The right-side **Search activity** rail visualizes the agent live: arXiv / GitHub satellites pulse as their tool fires, particles travel along the arc to the active tool, result ripples emit on the satellite, the counter ticks `papers · repos`, and a charge meter glows the central paw mark brighter as findings accumulate. The assistant bubble streams token-by-token under a blinking caret.
+```text
+score = 100
+score -= 18 * high_severity_flags
+score -= 10 * medium_severity_flags
+score -=  5 * low_severity_flags
+score -=  4 * unsupported_claims
+score +=  2 * verified_claims
+score = clamp(score, 0, 100)
+```
+
+| Score | Verdict |
+| --- | --- |
+| 85-100 | Strongly reproducible |
+| 70-84 | Mostly reproducible with concerns |
+| 50-69 | Significant reproducibility concerns |
+| 0-49 | Not reproducible from available evidence |
+
+---
 
 ## Stack
 
 ```text
-Backend  : FastAPI · uvicorn · httpx · anthropic · pypdf · python-multipart
-Storage  : sqlite3 (stdlib) — audits, audit_events, claims, evidence, messages, chat_*
-Frontend : plain HTML · plain CSS · plain JS (ES2020+) · inline SVG icons
-Fonts    : Instrument Serif (display) · IBM Plex Sans (body) · IBM Plex Mono (mono)
-Models   : Claude Sonnet 4.6 (chat agent, prompt-cached system + tools)
+Backend  : FastAPI, uvicorn, httpx, pypdf, python-multipart
+Storage  : sqlite3 stdlib
+Frontend : plain HTML, plain CSS, plain JavaScript, inline SVG
+Search   : SQLite + Nia + deterministic local repository fallback
+Email    : AgentMail webhook, threaded replies, report send
+LLM      : Claude Sonnet 4.6 for streaming research chat
+Fonts    : Instrument Serif, IBM Plex Sans, IBM Plex Mono
 ```
 
-No frontend frameworks. No CSS frameworks. No charting / markdown / animation libraries.
+No React. No Next.js. No Tailwind. No shadcn. No charting library. No animation library. No frontend build step.
 
-## Project structure
+---
+
+## Project Structure
 
 ```text
-apps/api/                    FastAPI service
+apps/api/
   app/
-    main.py                  routes + view switching
-    audit_pipeline.py        deterministic audit pipeline
-    chat.py                  streaming Claude agent loop (SSE)
-    nia_client.py            Nia HTTP + local fallback (search_for_claim)
-    agentmail_client.py      thread reply + send_message
-    discover.py              arXiv Atom + GitHub Search (no LLM)
-    paper_parser.py          pypdf wrapper (isolated PDF dep)
-    claim_extractor.py       regex extraction (epochs/seeds/lr/...)
-    static_checker.py        deterministic verdicts + severity
-    scoring.py               transparent score formula
-    reporter.py              email-style report template
-    followup.py              `explain claim N` handler
-    storage.py               SQLite schema + CRUD
-    config.py                stdlib `.env` loader + Settings
+    main.py                  FastAPI routes and static views
+    audit_pipeline.py        Audit event pipeline
+    agentmail_client.py      AgentMail replies and report sending
+    chat.py                  Streaming Claude research chat
+    claim_extractor.py       Claim extraction heuristics
+    config.py                .env loader and settings
+    discover.py              arXiv/OpenAlex/GitHub discovery
+    email_parser.py          Email request parsing
+    followup.py              "explain claim N" handling
+    nia_client.py            Nia interface and local fallback
+    paper_parser.py          PDF parsing
+    reporter.py              Email-style report generation
+    scoring.py               Transparent score formula
+    search.py                App-wide search
+    static_checker.py        Deterministic claim checks
+    storage.py               SQLite schema and CRUD
     static/
-      index.html             landing page
-      dashboard.html         single-page dashboard (data-view switcher)
-      app.js                 audit polling + chat SSE + view router
-      styles.css             single stylesheet (sidebar + chat + audit + activity rail)
-      pages/                 self-contained per-page UIs
-        claims/  evidence/  agentmail/  reports/  repositories/  settings/
-      logos/                 brand + integration SVGs
+      index.html             Landing page
+      dashboard.html         Dashboard shell
+      app.js                 Dashboard, audit polling, chat, search
+      styles.css             Shared dashboard design system
+      favicon.svg            ReproClaw favicon
+      site.webmanifest       App manifest
+      logos/                 Brand and integration assets
+      pages/                 Claims, Evidence, AgentMail, Reports, Repos, Settings
+
 demo_data/
-  case_a/                    epochs mismatch
-  case_b/                    missing multi-seed aggregation
+  case_a/                    Epoch mismatch fixture
+  case_b/                    Multi-seed aggregation fixture
+
 docs/
-  CLAUDE.md                  Claude-owned scope (frontend)
-  codex.md                   Codex-owned scope (backend)
-  demo_script.md             3-minute live demo
-  prompts.md                 LLM prompt drafts
-  nia.md                     Nia local-source notes
-design-guide.md              the canonical design system
+  CLAUDE.md                  Claude implementation scope
+  codex.md                   Codex implementation scope
+  demo_script.md             3-minute demo script
+  nia.md                     Nia codebase memory notes
+  prompts.md                 Prompt drafts
+
+design-guide.md              Canonical ReproClaw design system
 ```
 
-## Configuration
+---
 
-`.env` keys (see `.env.example`):
+## Design System
 
-```text
-AGENTMAIL_API_KEY=
-AGENTMAIL_INBOX_ID=
-AGENTMAIL_WEBHOOK_SECRET=
-NIA_API_KEY=
-NIA_PROJECT_ID=
-NIA_SOURCE_IDS=                # CSV; falls back to nia.json local sources
-ANTHROPIC_API_KEY=
-DATABASE_URL=sqlite:///./reproclaw.db
-REPO_CACHE_DIR=.cache/repos
-PDF_CACHE_DIR=.cache/papers
-PUBLIC_APP_URL=
-API_BASE_URL=http://localhost:8000
-```
+ReproClaw follows a refined editorial-minimalism system:
 
-## API surface
+- warm paper background,
+- pure white panels,
+- deep ink type,
+- hairline rules,
+- mono small-caps labels,
+- one signal-blue accent,
+- inline SVG icons,
+- Instrument Serif for display,
+- IBM Plex Sans and IBM Plex Mono for UI and metadata.
 
-```text
-POST /audits                        Create an audit (also indexes the repo with Nia)
-POST /audits/discover               Resolve paper → top-3 GitHub repo candidates
-POST /audits/upload-paper           Multipart PDF upload → cache + page count
-GET  /audits                        List audits
-GET  /audits/{id}                   Audit detail (claims + evidence + events)
-GET  /audits/{id}/events            SSE stream of pipeline events
-POST /audits/{id}/claims/{cid}/explain   Render evidence-grounded claim explanation
-POST /audits/{id}/followups         Reply to "explain claim N" inside an AgentMail thread
-POST /audits/{id}/email-report      Send the report via AgentMail
+The contract lives in [`design-guide.md`](./design-guide.md).
 
-POST /webhooks/agentmail            Inbound webhook (dedup by message_id)
+---
 
-POST /chat/conversations            Create chat conversation
-GET  /chat/conversations            List conversations
-GET  /chat/conversations/{id}       Get conversation history
-POST /chat/conversations/{id}/messages         Non-streaming send (legacy)
-POST /chat/conversations/{id}/messages/stream  Streaming send (SSE)
+## Acceptance Criteria
 
-GET  /search                        Application-wide search (SQLite + Nia)
-GET  /                              Landing page
-GET  /dashboard                     Single-page dashboard
-GET  /health                        Service ping
-```
+- [x] Accept audit requests from dashboard or AgentMail.
+- [x] Resolve arXiv papers by URL, ID, PDF URL, upload, or title.
+- [x] Suggest matching GitHub repositories.
+- [x] Index and search code context with Nia/local fallback.
+- [x] Extract claims and check static evidence.
+- [x] Generate transparent reproducibility scores.
+- [x] Stream live audit progress.
+- [x] Make each pipeline stage inspectable.
+- [x] Render completed audit reports.
+- [x] Draft and send report emails through AgentMail.
+- [x] Provide streaming research chat with arXiv and GitHub tools.
+- [x] Search across audits, claims, evidence, reports, and Nia context.
 
-## Reproducibility score (transparent)
+---
 
-```text
-score = 100
-score -= 18 × high_severity_flags
-score -= 10 × medium_severity_flags
-score -=  5 × low_severity_flags
-score -=  4 × unsupported_claims
-score +=  2 × verified_claims
-score = clamp(score, 0, 100)
-```
+## Roadmap
 
-Bands: ≥85 strong · ≥70 mostly w/ concerns · ≥50 significant concerns · <50 not reproducible.
+**Now:** static reproducibility audits with evidence paths, email-native delivery, stage inspection, and research search.
 
-## Design system
+**Next:** richer claim extraction, stronger repo-to-paper matching, dynamic execution in a sandbox, reviewer-ready PDF export, and batch audit mode.
 
-Every surface in this app inherits the same editorial-minimalism aesthetic, codified in **[`design-guide.md`](./design-guide.md)** — warm paper background (`#fbfaf6`), deep ink typography, hairline rules, mono small-caps section labels, a single signal-blue accent (`#1b4ed8`), inline SVG icons at 16 px / 1.5 px stroke. The guide is the contract every page agent followed.
+**Later:** GitHub PR comments, conference-scale reproducibility queues, author-facing fix suggestions, and a public registry of audit outcomes.
 
-## Demo script
+---
 
-A 3-minute live walkthrough lives at **[`docs/demo_script.md`](./docs/demo_script.md)**. The fallback if the live email path fails: click `Run Demo Audit` in the dashboard or POST `demo:case_a`.
+## Credits
 
-## Submission
+Built for the OpenClaw Hackathon: Eragon x Nozomio x AgentMail.
 
-- **Hackathon**: OpenClaw Hackathon — Eragon × Nozomio × AgentMail
-- **Co-host integrations**: AgentMail + Nia (both)
-- **Models**: Anthropic Claude Sonnet 4.6 (`claude-sonnet-4-6`)
-- **Demo**: <http://localhost:8000/dashboard>
+Powered by AgentMail, Nozomio Nia, FastAPI, Anthropic Claude, and a dependency-light plain-web dashboard.
+
+See [`spec.md`](./spec.md) for the original technical specification.
